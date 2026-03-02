@@ -990,6 +990,9 @@
       .wchip.active {
         box-shadow: 0 0 0 2px #fff;
         transform: scale(1.08);
+        letter-spacing: 2px;
+        opacity: 0.7;
+        font-style: italic;
       }
 
       /* ── SKIP BUTTON ── */
@@ -2201,6 +2204,11 @@
       function getChipLabel(i) {
         const ws = wordStates[i];
         const word = ws.word.length > 7 ? ws.word.slice(0, 6) + "…" : ws.word;
+        // Hide the current word so kids can't cheat
+        if (i === currentIdx) {
+          const blanks = "_ ".repeat(Math.min(ws.word.length, 8)).trim();
+          return blanks;
+        }
         if (gameMode === "quiz") {
           if (!ws.quizAnswered) return "?  " + word;
           return (ws.quizResult ? "✓ " : "✗ ") + word;
